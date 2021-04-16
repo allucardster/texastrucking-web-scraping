@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Texastrucking\WebScraping;
 
+use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CoMemSearchCrawler
@@ -19,7 +20,7 @@ class CoMemSearchCrawler
     public function __construct(string $path)
     {
         if (!file_exists($path)) {
-            throw new \InvalidArgumentException("The given file path \"{$path}\" doesn't exists.");
+            throw new InvalidArgumentException("The given file path \"{$path}\" doesn't exists.");
         }
 
         $this->path = $path;
@@ -95,5 +96,20 @@ class CoMemSearchCrawler
         $flags = $pretty ? JSON_PRETTY_PRINT : 0;
 
         return json_encode($this->getData(), $flags);
+    }
+
+    public function createCsv(string $path): bool
+    {
+        $fp = fopen($path, 'w');
+
+        foreach ($this->getData() as $row) {
+            $row['trailerTypes'] = implode(', ', $row['trailerTypes']);
+            $row['commoditiesHauled'] = implode(', ', $row['commoditiesHauled']);
+            fputcsv($fp, array_values($row));
+        }
+
+        fclose($fp);
+
+        return true;
     }
 }
