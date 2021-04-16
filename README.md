@@ -17,7 +17,8 @@ TL;DR
 =====
 From console execute the following:
 ```
-$~ docker-compose up -d --remove-orphans
+$~ make up
+$~ make composer-install
 $~ make scrap-source
 docker-compose exec php sh -c 'php -d memory_limit=-1 test.php'
 [
