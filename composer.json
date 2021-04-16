@@ -1,0 +1,28 @@
+{
+    "name": "allucardster/texastrucking-web-scraping",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Richard Melo",
+            "email": "allucardster@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "fabpot/goutte": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+                "Texastrucking\\WebScraping\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Texastrucking\\WebScraping\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
