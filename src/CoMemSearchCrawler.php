@@ -102,7 +102,11 @@ class CoMemSearchCrawler
     {
         $fp = fopen($path, 'w');
 
-        foreach ($this->getData() as $row) {
+        foreach ($this->getData() as $key => $row) {
+            if (0 === $key) {
+                fputcsv($fp, array_keys($row));
+            }
+
             $row['trailerTypes'] = implode(', ', $row['trailerTypes']);
             $row['commoditiesHauled'] = implode(', ', $row['commoditiesHauled']);
             fputcsv($fp, array_values($row));
